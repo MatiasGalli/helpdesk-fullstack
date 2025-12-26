@@ -1,0 +1,78 @@
+<div style="padding:24px; max-width:800px; margin:0 auto; font-family:system-ui, -apple-system, sans-serif;">
+
+  <!-- Back link -->
+  <a
+    routerLink="/tickets"
+    style="display:inline-block; margin-bottom:16px; color:#2563eb; text-decoration:none; font-size:14px;"
+  >
+    ← Volver a tickets
+  </a>
+
+  <!-- Header -->
+  <div style="margin-bottom:20px;">
+    <h2 style="margin:0; font-size:26px; font-weight:600;">Nuevo Ticket</h2>
+    <p style="margin:4px 0 0; color:#6b7280;">Crea un nuevo ticket de soporte</p>
+  </div>
+
+  <!-- Form Card -->
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    style="background:white; border:1px solid #e5e7eb; border-radius:8px; padding:20px; max-width:520px;"
+  >
+
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:13px; color:#374151; margin-bottom:6px;">Título</label>
+      <input
+        formControlName="title"
+        placeholder="Ej: Error al iniciar sesión"
+        style="width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px;"
+      />
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:13px; color:#374151; margin-bottom:6px;">Descripción</label>
+      <textarea
+        formControlName="description"
+        rows="5"
+        placeholder="Describe el problema o solicitud"
+        style="width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; resize:vertical;"
+      ></textarea>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:13px; color:#374151; margin-bottom:6px;">Prioridad</label>
+      <select
+        formControlName="priority"
+        style="width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px;"
+      >
+        <option [ngValue]="1">Low</option>
+        <option [ngValue]="2">Medium</option>
+        <option [ngValue]="3">High</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <label style="display:block; font-size:13px; color:#374151; margin-bottom:6px;">Asignado a</label>
+      <input
+        formControlName="assignedTo"
+        placeholder="Nombre del responsable"
+        style="width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px;"
+      />
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="loading || form.invalid"
+      style="padding:10px 16px; background:#111827; color:white; border:none; border-radius:6px; font-size:14px; font-weight:600; cursor:pointer;"
+    >
+      {{ loading ? 'Creando...' : 'Crear Ticket' }}
+    </button>
+
+    <p *ngIf="error" style="margin-top:16px; color:#dc2626; font-size:13px;">
+      {{ error }}
+    </p>
+
+  </form>
+
+</div>

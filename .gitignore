@@ -1,0 +1,20 @@
+# Node
+node_modules/
+dist/
+
+# Angular
+.angular/
+.cache/
+
+# .NET
+bin/
+obj/
+
+# SQLite
+*.db
+
+# Env
+.env
+
+# OS
+.DS_Store

@@ -1,0 +1,93 @@
+<div style="padding:24px; max-width:1200px; margin:0 auto; font-family:system-ui, -apple-system, sans-serif;">
+
+  <!-- Header -->
+  <div style="display:flex; align-items:center; margin-bottom:20px;">
+    <div>
+      <h2 style="margin:0; font-size:26px; font-weight:600;">Tickets</h2>
+      <p style="margin:4px 0 0; color:#6b7280;">Manage and track support tickets</p>
+    </div>
+
+    <a
+      routerLink="/tickets/new"
+      style="margin-left:auto; padding:8px 14px; background:#111827; color:white; text-decoration:none; border-radius:6px; font-size:14px; font-weight:500;"
+    >
+      + Nuevo Ticket
+    </a>
+  </div>
+
+  <!-- Toolbar -->
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+    <button (click)="load()" style="padding:6px 12px;">Refrescar</button>
+
+    <div style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+      <label style="font-size:14px;">Priority</label>
+      <select [(ngModel)]="priority" style="padding:6px 8px;">
+        <option [ngValue]="null">All</option>
+        <option [ngValue]="1">Low</option>
+        <option [ngValue]="2">Medium</option>
+        <option [ngValue]="3">High</option>
+      </select>
+
+      <button (click)="applyFilters()" style="padding:6px 10px;">Filtrar</button>
+      <button (click)="clearFilters()" style="padding:6px 10px;">Limpiar</button>
+    </div>
+  </div>
+
+  <!-- States -->
+  <p *ngIf="loading" style="color:#374151;">Cargando...</p>
+  <p *ngIf="error" style="color:#dc2626;">{{ error }}</p>
+
+  <!-- Table -->
+  <div style="border:1px solid #e5e7eb; border-radius:8px; overflow:hidden;">
+    <table *ngIf="!loading" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+      <thead style="background:#f9fafb;">
+        <tr>
+          <th style="text-align:left; font-weight:600;">Title</th>
+          <th style="text-align:left; font-weight:600;">Status</th>
+          <th style="text-align:left; font-weight:600;">Priority</th>
+          <th style="text-align:left; font-weight:600;">Assigned</th>
+          <th style="text-align:left; font-weight:600;">Created</th>
+          <th style="text-align:left; font-weight:600;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of items" style="border-top:1px solid #e5e7eb;">
+          <td>{{ t.title }}</td>
+          <td>
+            <select [ngModel]="t.status" (ngModelChange)="changeStatus(t, $event)">
+              <option [ngValue]="1">New</option>
+              <option [ngValue]="2">In Progress</option>
+              <option [ngValue]="3">Resolved</option>
+            </select>
+          </td>
+          <td>
+            <select [ngModel]="t.priority" (ngModelChange)="changePriority(t, $event)">
+              <option [ngValue]="1">Low</option>
+              <option [ngValue]="2">Medium</option>
+              <option [ngValue]="3">High</option>
+            </select>
+          </td>
+          <td>{{ t.assignedTo || '-' }}</td>
+          <td>{{ t.createdAtUtc | date:'short' }}</td>
+          <td>
+            <a [routerLink]="['/tickets', t.id]">Ver</a>
+            &nbsp;|&nbsp;
+            <button (click)="remove(t)">Eliminar</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="items.length === 0">
+          <td colspan="6" style="padding:12px; color:#6b7280;">No hay tickets</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div style="display:flex; align-items:center; gap:12px; margin-top:16px;">
+    <button (click)="prevPage()" [disabled]="page <= 1">Anterior</button>
+    <span style="color:#374151;">Página {{ page }} | Total {{ total }}</span>
+    <button (click)="nextPage()" [disabled]="page * pageSize >= total">Siguiente</button>
+  </div>
+
+</div>

@@ -1,0 +1,62 @@
+<div style="padding:24px; max-width:800px; margin:0 auto; font-family:system-ui, -apple-system, sans-serif;">
+
+  <!-- Back link -->
+  <a
+    routerLink="/tickets"
+    style="display:inline-block; margin-bottom:16px; color:#2563eb; text-decoration:none; font-size:14px;"
+  >
+    ← Volver a tickets
+  </a>
+
+  <!-- Header -->
+  <div style="margin-bottom:20px;">
+    <h2 style="margin:0; font-size:26px; font-weight:600;">Detalle del Ticket</h2>
+    <p style="margin:4px 0 0; color:#6b7280;">Información completa del ticket seleccionado</p>
+  </div>
+
+  <!-- States -->
+  <p *ngIf="loading" style="color:#374151;">Cargando...</p>
+  <p *ngIf="error" style="color:#dc2626;">{{ error }}</p>
+
+  <!-- Card -->
+  <div *ngIf="ticket" style="background:white; border:1px solid #e5e7eb; border-radius:8px; padding:20px;">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+      <div>
+        <p style="margin:0; font-size:12px; color:#6b7280;">ID</p>
+        <p style="margin:2px 0 0; font-weight:500;">{{ ticket.id }}</p>
+      </div>
+      <div>
+        <p style="margin:0; font-size:12px; color:#6b7280;">Creado</p>
+        <p style="margin:2px 0 0; font-weight:500;">{{ ticket.createdAtUtc | date:'short' }}</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <p style="margin:0; font-size:12px; color:#6b7280;">Título</p>
+      <p style="margin:4px 0 0; font-weight:500;">{{ ticket.title }}</p>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <p style="margin:0; font-size:12px; color:#6b7280;">Descripción</p>
+      <p style="margin:4px 0 0; white-space:pre-line;">{{ ticket.description }}</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
+      <div>
+        <p style="margin:0; font-size:12px; color:#6b7280;">Estado</p>
+        <p style="margin:4px 0 0; font-weight:500;">{{ statusLabel(ticket.status) }}</p>
+      </div>
+      <div>
+        <p style="margin:0; font-size:12px; color:#6b7280;">Prioridad</p>
+        <p style="margin:4px 0 0; font-weight:500;">{{ priorityLabel(ticket.priority) }}</p>
+      </div>
+      <div>
+        <p style="margin:0; font-size:12px; color:#6b7280;">Asignado a</p>
+        <p style="margin:4px 0 0; font-weight:500;">{{ ticket.assignedTo || '-' }}</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

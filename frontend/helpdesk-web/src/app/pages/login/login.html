@@ -1,0 +1,41 @@
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f6f8;">
+  <div style="width:100%;max-width:360px;background:white;padding:32px;border-radius:8px;box-shadow:0 10px 25px rgba(0,0,0,0.08);">
+
+    <h2 style="margin-bottom:4px;font-size:24px;font-weight:600;text-align:center;">HelpDesk</h2>
+    <p style="margin-bottom:24px;text-align:center;color:#6b7280;font-size:14px;">Sign in to your account</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div style="margin-bottom:16px;">
+        <label style="display:block;margin-bottom:6px;font-size:13px;color:#374151;">Usuario</label>
+        <input
+          formControlName="username"
+          placeholder="admin"
+          style="width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;"
+        />
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="display:block;margin-bottom:6px;font-size:13px;color:#374151;">Clave</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          style="width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px;"
+        />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        style="width:100%;padding:10px 0;background:#111827;color:white;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;"
+      >
+        Entrar
+      </button>
+
+      <p *ngIf="error" style="margin-top:16px;color:#dc2626;font-size:13px;text-align:center;">
+        {{ error }}
+      </p>
+    </form>
+
+  </div>
+</div>
